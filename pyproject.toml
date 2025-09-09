@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "PyPlotJuggling"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Python client library for PlotJuggling JSON UDP API"
 readme = "README.md"
 requires-python = ">=3.10"

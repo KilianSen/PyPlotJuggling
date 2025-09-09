@@ -19,11 +19,11 @@ The main component of PyPlotJuggling is the `PortJugglerClient`, which is used t
 Here's a simple example of how to use `PortJugglerClient`:
 
 ```python
-from PyPlotJuggling import PortJugglerClient, PJData
+from PyPlotJuggling import PlotJugglerClient, PJData
 import time
 
 # Create a client
-client = PortJugglerClient("127.0.0.1", 12345)
+client = PlotJugglerClient("127.0.0.1", 12345)
 
 # Send some data
 for i in range(10):
@@ -47,11 +47,11 @@ client.close()
 Here's an example of how to use the `IN_JUGGLER` analytics mode:
 
 ```python
-from PyPlotJuggling import PortJugglerClient, PJData, AnalyticsMode
+from PyPlotJuggling import PlotJugglerClient, PJData, AnalyticsMode
 import time
 
 # Create a client with IN_JUGGLER analytics mode
-client = PortJugglerClient("127.0.0.1", 12345, analytics=AnalyticsMode.IN_JUGGLER)
+client = PlotJugglerClient("127.0.0.1", 12345, analytics=AnalyticsMode.IN_JUGGLER)
 
 # Send some data
 for i in range(10):
@@ -79,14 +79,16 @@ The analytics data is provided as an `AnalyticsModel` object, which has the foll
 When using `AnalyticsMode.PERIODIC`, you can also provide a callback function to process the analytics data.
 
 ```python
-from PyPlotJuggling import PortJugglerClient, PJData, AnalyticsMode, AnalyticsModel
+from PyPlotJuggling import PlotJugglerClient, PJData, AnalyticsMode, AnalyticsModel
 import time
+
 
 def my_analytics_callback(analytics: AnalyticsModel):
     print(f"Custom callback: {analytics.frequency:.2f} Hz")
 
+
 # Create a client with a callback
-client = PortJugglerClient(
+client = PlotJugglerClient(
     "127.0.0.1",
     12345,
     analytics=AnalyticsMode.PERIODIC,

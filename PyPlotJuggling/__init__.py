@@ -10,8 +10,8 @@ from pydantic import BaseModel, Field
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-__version__ = "1.0.0"
-__all__ = ["PortJugglerClient", "PJData", "AnalyticsModel", "AnalyticsMode"]
+__version__ = "1.0.1"
+__all__ = ["PlotJugglerClient", "PJData", "AnalyticsModel", "AnalyticsMode"]
 
 class AnalyticsMode:
     OFF = "off"
@@ -32,7 +32,7 @@ class PJData(BaseModel):
     values: dict[str, float | int | bool | BaseModel]
 
 
-class PortJugglerClient:
+class PlotJugglerClient:
     def __init__(self, ip: str, port: int, analytics: AnalyticsMode = AnalyticsMode.OFF,
                  periodic_interval: float = 5.0, analytics_callback: Optional[Callable[[AnalyticsModel], None]] = None,
                  analytics_window: float = 5.0):
