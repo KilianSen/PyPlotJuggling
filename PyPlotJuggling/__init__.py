@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __all__ = ["PlotJugglerClient", "PJData", "AnalyticsModel", "AnalyticsMode"]
 
 class AnalyticsMode:
@@ -24,12 +24,12 @@ class AnalyticsModel(BaseModel):
     frequency: float  # in Hz (momentary)
     duration: float  # in seconds (total)
     rate: float  # in bytes per second (momentary)
-    ow_warning: bool | None = Field(default=None)
     window_size: float = Field(default=5.0)  # window size in seconds
 
 class PJData(BaseModel):
     timestamp: float = Field(default_factory=time.time)
-    values: dict[str, float | int | bool | BaseModel]
+    values: dict[str, float | int | bool]
+    analytics : Optional[AnalyticsModel] = None
 
 
 class PlotJugglerClient:
@@ -147,11 +147,8 @@ class PlotJugglerClient:
         if self.analytics_mode == AnalyticsMode.IN_JUGGLER:
             # Create a deep copy to avoid modifying the original data object
             send_data = data.model_copy(deep=True)
-            if "analytics" in send_data.values:
-                self.analytics.ow_warning = True
-                logger.warning("Overwriting existing 'analytics' field in PJData")
 
-            send_data.values["analytics"] = self.get_analytics()
+            send_data.analytics = self.get_analytics()
 
         # Serialize data
         json_data = send_data.model_dump_json().encode()
