@@ -10,6 +10,9 @@ from pydantic import BaseModel, Field
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
+__version__ = "1.0.0"
+__all__ = ["PortJugglerClient", "PJData", "AnalyticsModel", "AnalyticsMode"]
+
 class AnalyticsMode:
     OFF = "off"
     BASIC = "basic"
